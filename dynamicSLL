@@ -1,0 +1,315 @@
+#include <stdio.h>
+#include <stdlib.h>
+int pos;
+struct node
+{
+    int data;
+    struct node * next ;
+}*head,*temp,*q,*p,*z;
+void create();
+void display(struct node*head);
+void insert_begin();
+void insert_end();
+void insert_pos();
+void del_begin();
+void del_end();
+void del_pos();
+void merging();
+void searching();
+void sorting();
+void replace();
+void create(){
+    int i,n,m;
+    printf("how many nodes you want :- ");
+    scanf("%d",&n);
+    printf("enter the element :- ");
+    for ( i = 0; i < n; i++)
+    {
+        scanf("%d",&m);
+        temp=(struct node *)malloc(sizeof(struct node));
+        temp->data=m;
+        temp->next=NULL;
+        if(head==NULL){
+            head=temp;
+        }
+        else{
+            q=head;
+            while (q->next!=NULL) 
+            {
+                q=q->next;}
+                q->next=temp;
+        }
+    }
+}
+void display(struct node*head){
+	struct node *temp;
+	if(head==NULL){
+		printf("list is empty.");
+		return;
+	}
+	temp=head;
+    while (temp!=NULL)
+    {
+        printf("data=%d\n",temp->data);
+        temp=temp->next;
+    }
+}
+void insert_begin(){
+	int m;
+	temp=(struct node *)malloc(sizeof(struct node));
+	printf("enter the elements :- ");
+	scanf("%d",&m);
+ 	temp->data=m;
+    temp->next=NULL;
+    if(head==NULL){
+	head=temp;
+    }
+    else{
+    	temp->next=head;
+    	head=temp;
+	}
+    display(head);
+}
+void insert_end(){
+	int m;
+	temp=(struct node *)malloc(sizeof(struct node));
+	printf("enter the elements :- ");
+	scanf("%d",&m);
+ 	temp->data=m;
+    temp->next=NULL;
+    if(head==NULL){
+	head=temp;
+    }
+    else{
+    	while(q->next!=NULL)
+    	{
+    		q=q->next;
+    	}
+    	q->next=temp;
+	}
+    display(head);
+}
+void insert_pos(){
+	int m,pos,i;
+	if(head==NULL){
+	printf("list is empty");
+    }
+	temp=(struct node *)malloc(sizeof(struct node));
+	printf("enter the elements :- ");
+	scanf("%d",&m);
+ 	temp->data=m;
+    temp->next=NULL;
+    printf("enter the postion where you want to insert :- ");
+    scanf("%d",&pos);
+    q=head;
+    for(i=0;i<pos-1;i++){
+    	if(q->next==NULL){
+    		printf("there are less element");
+		}
+		q=q->next;
+	}
+	temp->next=q->next;
+	q->next=temp;
+    display(head);
+}
+void del_begin(){
+    if (head==NULL)
+    {
+        printf("there is no statement to delete ");
+    }
+    else
+    {
+        q=head;
+        head=head->next;
+        printf("the deleted element id %d ",q->data);
+        free(q);
+        display(head);
+    }
+    
+}
+void del_end(){
+    if (head==NULL)
+    {
+        printf("there is no statement to delete ");
+    }
+    else
+    {
+        q=head;
+        while (q->next->next!=NULL)
+        {
+            q=q->next;
+        }
+        temp=q->next;
+        q->next=NULL;
+        printf("the element deleted is %d",temp->data);
+        free(temp);          
+        display(head);
+    }
+}
+void del_pos(){
+    int pos,i;
+    if(head==NULL)
+    {
+        printf("list  is empty");
+    }
+    printf("Enter the position to perform deletion :- ");
+    scanf("%d",&pos);
+    q=head;
+    for(i=0;i<=pos-1;i++){
+        if(q->next==NULL){
+            printf("less elements");
+        }
+        q=q->next;
+    }
+    temp=q->next;
+    q->next=temp->next;
+    printf("the element deleted is %d",temp->data);
+    free(temp);
+    display(head);
+}
+void merging(){
+    int j,x,y;
+    printf("how many nodes you want :- ");
+    scanf("%d",&x);
+    printf("enter the element :- ");
+    for ( j = 0; j < x; j++)
+    {
+        scanf("%d",&y);
+        temp=(struct node *)malloc(sizeof(struct node));
+        temp->data=y;
+        temp->next=NULL;
+        if(head==NULL){
+            head=temp;
+        }
+        else{
+            p=head;
+            while (p->next!=NULL) 
+            {
+                p=p->next;}
+                p->next=temp;
+        }
+    }
+    display(head);
+}
+ // Search a node
+void searching(int key) {
+	int flag=1;
+	pos=1;
+  q = head;
+
+  while (q != NULL) {
+    if (q->data == key) {
+	printf("%d found at %d node\n",key,pos);
+	flag=0;
+	}
+      q = q->next;
+      pos++;
+  }
+  if(flag==1)
+  printf("Not found");
+}
+void sorting() {
+  q= head;
+  int temp;
+
+  if (head == NULL) {
+  printf("NO data to sort");
+  } else {
+  while (q != NULL) {
+    // z points to the node next to q
+    z = q->next;
+
+    while (z != NULL) {
+    if (q->data > z->data) {
+      temp = q->data;
+      q->data = z->data;
+      z->data = temp;
+    }
+    z = z->next;
+    }
+    q = q->next;
+  }
+  }
+   printf("After sorting the data is :\n");
+  display(head);
+}
+// Modify data in a node
+void replace(int key) {
+	int flag=1,k;
+	pos=1;
+  q = head;
+
+  while (q != NULL) {
+    if (q->data == key) {
+    	printf("Enter the data to be replaced\n");
+    	scanf("%d",&k);
+    	q->data=k;
+    	
+	printf("Data replaced\n");
+	flag=0;
+	}
+      q = q->next;
+      pos++;
+  }
+  if(flag==1)
+  printf("Not found");
+}
+int main(){
+    int item,r;
+	while(1){
+		int ch;
+		printf("1.create\n2.display \n3. insertion at begining \n4.insertion at end\n5.insertion at position\n6.deletion at begining \n7.deletion at end\n8.deletion at pos\n9.merging\n10.searching\n11.sorting\n12.replace\n13.exits\n");
+		printf("ENTER A CHOICE : ");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+			create();
+			break;
+			case 2:
+			display(head);
+			break;
+			case 3:
+			insert_begin();
+			break;
+			case 4:
+			insert_end();
+			break;
+			case 5:
+			insert_pos();
+			break;
+            case 6:
+			del_begin();
+			break;
+			case 7:
+			del_end();
+			break;
+			case 8:
+			del_pos();
+			break;
+            case 9:
+			merging();
+			break;
+            case 10:
+            printf("Enter data to be searched");
+            scanf("%d",&item);
+            searching(item);
+			break;
+			case 11:
+			sorting();
+			break;
+			case 12:
+            printf("Enter data to be modified");
+            scanf("%d",&r);
+            replace(r);
+            printf("After modification data is :\n");
+            display(head);
+			break;
+			case 13:
+			exit(0);
+			break;
+			default:
+			printf("incorrect choice");
+		}
+	}
+}
